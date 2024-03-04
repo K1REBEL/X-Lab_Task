@@ -20,4 +20,6 @@ Route::get('/', function () {
 });
 
 Route::resource('employees', EmpController::class);
+Route::get('/employees/common/{job}', [EmpController::class, 'job_index'])->name('employees.common_job');
+
 Route::resource('jobs', JobController::class);

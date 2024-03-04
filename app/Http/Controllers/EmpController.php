@@ -17,8 +17,13 @@ class EmpController extends Controller
     public function index()
     {
         $emps = Employee::with('job')->get();
-        log::info($emps);
         return view('employees.index', compact('emps'));
+    }
+        
+    public function job_index(Job $job)
+    {
+        $emps = Employee::where('job_id', $job->id)->get();
+        return view('employees.common_job', compact('emps', 'job'));
     }
 
     /**
@@ -35,7 +40,6 @@ class EmpController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:employees,email',
@@ -49,7 +53,6 @@ class EmpController extends Controller
         $name = $request->name;
         $email = $request->email;
         $jobID = $request->job;
-        // log::info([$name, $email, $jobID]);
 
         Employee::create([
             'name' => $name,
@@ -65,7 +68,6 @@ class EmpController extends Controller
      */
     public function show(string $id)
     {
-        // $employee = Employee::findorfail($id)->with('job');
         $emp = Employee::where('id', $id)->with('job')->get();
         $emp_json = $emp->toJson();
 
@@ -79,7 +81,6 @@ class EmpController extends Controller
     {
         $emp = Employee::where('id', $id)->with('job')->get();
         $jobs = Job::all();
-        log::info($emp);
 
         $emp_json = $emp->toJson();
         return view('employees.edit', compact('emp_json', 'jobs'));

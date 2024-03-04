@@ -9,11 +9,11 @@
          margin: 2px;
       }
    </style>
-   <title>Employee Index</title>
+   <title>Employees</title>
 </head>
 <body>
 
-   <h2>Employee List:</h2>
+   <h2>Employees Sharing the Same Job:</h2>
    <table>
       <tr>
          <th>ID</th>
@@ -27,7 +27,7 @@
          <td>{{$emp->id}}</td>
          <td><a href="{{ route('employees.show', $emp->id) }}">{{$emp->name}}</a></td>
          <td>{{$emp->email}}</td>
-         <td>{{$emp->job->title}}</td>
+         <td>{{$job->title}}</td>
          <td>
             <a href="{{ route('employees.edit', $emp->id) }}"><button>Edit</button></a>
          </td>

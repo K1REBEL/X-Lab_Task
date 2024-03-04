@@ -4,9 +4,15 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <style>
+      body *{
+         margin: 2px;
+      }
+   </style>
    <title>Add an Employee</title>
 </head>
 <body>
+
    <h2>Add a new employee</h2>
    <form action="{{ route('employees.store') }}" method="POST">
       @csrf
@@ -30,5 +36,6 @@
       <button type="submit">Add Employee</button>
 
    </form>
+   
 </body>
 </html>

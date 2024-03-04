@@ -43,7 +43,6 @@ class JobController extends Controller
         
         $title = $request->title;
         $desc = $request->description;
-        // log::info([$title, $desc]);
 
         Job::create([
             'title' => $title,
@@ -59,12 +58,7 @@ class JobController extends Controller
     public function show(string $id)
     {
         $job = Job::findorfail($id);
-        // log::info($job);
-
-        // if (!$job) { return "Job couldn't be found."; }
-        // else { 
-            return view('jobs.show', compact('job')); 
-        // }
+        return view('jobs.show', compact('job')); 
     }
 
     /**

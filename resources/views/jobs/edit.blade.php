@@ -4,9 +4,15 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <style>
+      body *{
+         margin: 2px;
+      }
+   </style>
    <title>Edit a Job</title>
 </head>
 <body>
+
    <form action="{{ route('jobs.update', $job->id) }}" method="POST">
       @csrf
       @method('PATCH')
@@ -22,5 +28,6 @@
       <button type="submit">Update Job</button>
 
    </form>
+   
 </body>
 </html>

@@ -4,9 +4,15 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <style>
+      body *{
+         margin: 2px;
+      }
+   </style>
    <title>Update Employee</title>
 </head>
 <body>
+
    @php $emp = json_decode($emp_json); @endphp
 
    <form action="{{ route('employees.update', $emp[0]->id) }}" method="POST">
@@ -36,5 +42,6 @@
       <button type="submit">Add Employee</button>
 
    </form>
+   
 </body>
 </html>
