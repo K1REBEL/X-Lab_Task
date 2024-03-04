@@ -6,6 +6,7 @@ use App\Models\Job;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class JobController extends Controller
 {
@@ -31,9 +32,18 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+        ]);
+        
+        if ($validator->fails()) {
+            log::info('Validation Failure');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         $title = $request->title;
         $desc = $request->description;
-        log::info([$title, $desc]);
+        // log::info([$title, $desc]);
 
         Job::create([
             'title' => $title,
@@ -41,7 +51,6 @@ class JobController extends Controller
         ]);
 
         return redirect()->route('jobs.index');
-
     }
 
     /**
@@ -73,12 +82,21 @@ class JobController extends Controller
     public function update(Request $request, string $id)
     {
         $job = Job::findorfail($id);
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+        ]);
+        
+        if ($validator->fails()) {
+            log::info('Validation Failure');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $job->title = $request->title;
         $job->description = $request->description;
 
         $job->save();
         return redirect()->route('jobs.index');
-
     }
 
     /**

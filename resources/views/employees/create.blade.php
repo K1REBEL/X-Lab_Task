@@ -4,31 +4,25 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>Update Employee</title>
+   <title>Add an Employee</title>
 </head>
 <body>
-   @php $emp = json_decode($emp_json); @endphp
-
-   <form action="{{ route('employees.update', $emp[0]->id) }}" method="POST">
+   <h2>Add a new employee</h2>
+   <form action="{{ route('employees.store') }}" method="POST">
       @csrf
-      @method('PATCH')
 
       <label for="name">Name: </label>
-      <input type="text" name="name" id="name" value="{{$emp[0]->name}}">
+      <input type="text" name="name" id="name">
       <br>
 
       <label for="email">E-mail: </label>
-      <input type="email" name="email" id="email" value="{{$emp[0]->email}}">
+      <input type="email" name="email" id="email">
       <br>
 
       <label for="job">What job is this employee currently working on?</label>
       <select name="job" id="job">
          @foreach($jobs as $job)
-            @if($job->id == $emp[0]->job->id)
-               <option value="{{ $job->id }}" selected>{{ $job->title }}</option>
-            @else 
-               <option value="{{ $job->id }}">{{ $job->title }}</option>
-            @endif
+            <option value="{{ $job->id }}">{{ $job->title }}</option>
          @endforeach
       </select>
       <br>

@@ -19,6 +19,5 @@
    
    <h3>ID in DB: {{$job->id}}</h3>
 
-
 </body>
 </html>

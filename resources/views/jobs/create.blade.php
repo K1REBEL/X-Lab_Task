@@ -14,7 +14,7 @@
       <input type="text" name="title" id="title">
       <br>
 
-      <label for="title">Job Description: </label>
+      <label for="description">Job Description: </label>
       <textarea name="description" id="desc" cols="30" rows="10"></textarea>
       {{-- <input type="text" name="desc" id="desc"> --}}
       <br>
