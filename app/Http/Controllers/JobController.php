@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class JobController extends Controller
 {
@@ -11,7 +14,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
+        $jobs = Job::all();
+        return view('jobs.index', compact('jobs'));
     }
 
     /**
@@ -19,7 +23,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        //
+        return view('jobs.create');
     }
 
     /**
@@ -27,7 +31,17 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $title = $request->title;
+        $desc = $request->description;
+        log::info([$title, $desc]);
+
+        Job::create([
+            'title' => $title,
+            'description' => $desc
+        ]);
+
+        return redirect()->route('jobs.index');
+
     }
 
     /**
@@ -35,7 +49,13 @@ class JobController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $job = Job::findorfail($id);
+        // log::info($job);
+
+        // if (!$job) { return "Job couldn't be found."; }
+        // else { 
+            return view('jobs.show', compact('job')); 
+        // }
     }
 
     /**
@@ -43,7 +63,8 @@ class JobController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $job = Job::findorfail($id);
+        return view('jobs.edit', compact('job'));
     }
 
     /**
@@ -51,7 +72,13 @@ class JobController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $job = Job::findorfail($id);
+        $job->title = $request->title;
+        $job->description = $request->description;
+
+        $job->save();
+        return redirect()->route('jobs.index');
+
     }
 
     /**
@@ -59,6 +86,7 @@ class JobController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Job::where('id', $id)->delete();
+        return redirect()->route('jobs.index');
     }
 }
