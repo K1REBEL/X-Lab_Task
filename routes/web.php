@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EmpController;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('employees', EmpController::class);
+Route::resource('jobs', JobController::class);
